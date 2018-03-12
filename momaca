@@ -8,15 +8,15 @@
 atomdata='Ac=227.0278;Ag=107.868;Al=26.98154;Am=243.0614;Ar=39.948;As=74.9216;At=209.987;Au=196.9665;B=10.81;Ba=137.34;Be=9.01218;Bk=247.0703;Bi=208.9804;Br=79.904;C=12.0115;Ca=40.08;Cd=112.40;Ce=140.12;Cf=251.0796;Cl=35.453;Cm=247.0704;Co=58.9332;Cr=51.996;Cs=132.9054;Cu=63.546;Dy=162.50;Er=167.26;Es=254.0881;Eu=151.96;F=18.99840;Fe=54.847;Fm=257.0951;Fr=223.0198;Ga=69.72;Gd=157.25;Ge=72.59;H=1.0097;He=4.0026;Hf=178.49;Hg=200.59;Ho=164.9304;I=126.9045;In=114.82;Ir=192.22;K=39.098;La=138.9055;Li=6.941;Lu=174.97;Lr=260.10;Md=258.10;Mg=24.305;Mn=54.938;Mo=95.94;N=14.0067;Na=22.98977;Nb=92.9064;Nd=144.24;Ne=20.179;Ni=58.70;No=255.0933;Np=237.0482;O=15.9994;Os=190.20;P=30.97376;Pa=231.0359;Pb=207.20;Pd=106.40;Pm=144.9128;Po=208.9824;Pr=140.9077;Pt=195.09;Pu=224.0642;Ra=226.0254;Rb=85.4678;Re=186.207;Rh=102.9055;Rn=222.0176;Ru=101.70;S=32.06;Sb=121.75;Sc=44.9559;Se=78.96;Si=28.086;Sm=150.40;Sn=118.69;Sr=87.62;Ta=180.9479;Tb=158.9254;Tc=96.9064;Te=127.60;Th=232.0381;Ti=47.90;Tl=204.37;Tm=168.9342;U=238.029;Une=266.10;Unh=263.10;Uno=265.10;Unp=263.10;Unq=261.10;Uns=262.10;V=50.9414;W=183.85;Xe=131.30;Y=88.9059;Yb=173.04;Zz=65.38;Zr=91.22'
 if [ "$#" -eq '0' ]
 then
-  read input
+    read input
 else
-  if [ "$1" = '--help' ]
-  then
-    <"$0" grep -e '^# ' | grep -v '^# vim:' | cut -c 3- >&2
-    exit
-  else
-    input="$*"
-  fi
+    if [ "$1" = '--help' ]
+    then
+        <"$0" grep -e '^# ' | grep -v '^# vim:' | cut -c 3- >&2
+        exit
+    else
+        input="$*"
+    fi
 fi
 output=`printf '%s' "$input" | 
 tr -dc 'A-Za-z0-9[](){}' | 
@@ -27,16 +27,16 @@ caclstring=''
 atoms=''
 for atom in $output
 do
-  if printf '%s' "$atom" | grep -q '^#'
-  then
-    atom=`printf '%s' "$atom" | cut -c 2-`
-    atom=`printf '%s' "$atomdata" | tr ';' "\n" | grep -e "^$atom=" | cut -d '=' -f 2`
-    [ -z "$atom" ] && atom='0.0'
-  fi
-  calcstring="$calcstring$atom"
+    if printf '%s' "$atom" | grep -q '^#'
+    then
+        atom=`printf '%s' "$atom" | cut -c 2-`
+        atom=`printf '%s' "$atomdata" | tr ';' "\n" | grep -e "^$atom=" | cut -d '=' -f 2`
+        [ -z "$atom" ] && atom='0.0'
+    fi
+    calcstring="$calcstring$atom"
 done
 calcstring=`printf '%s' "$calcstring" | tr -dc '0-9.()+*'`
 [ -z "$calcstring" ] && calcstring='0.0'
 printf 'scale=2; (%s)/1\n' "$calcstring" | bc
 
-# vim:ts=2 sts=2 sw=2 et
+# vim:ts=4 sts=4 sw=4 et
