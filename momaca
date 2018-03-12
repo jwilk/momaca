@@ -23,8 +23,8 @@ tr -dc 'A-Za-z0-9[](){}' |
 tr '[]{}' '()()' |
 sed -e 's/\([A-Z][a-z]*\)/(\1)/g; s/\([0-9][0-9]*\)/*\1/g; s/)(/)+(/g; s/\([0-9]\)(/\1+(/g; s/^*\([0-9][0-9]*\)\(.*\)$/\1*(\2)/g' |
 sed -e 's/\([A-Z][a-z]*\)/\n#\1\n/g'`
-caclstring=''
-atoms=''
+calcstring=''
+atom=''
 for atom in $output
 do
     if printf '%s' "$atom" | grep -q '^#'
