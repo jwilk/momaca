@@ -117,7 +117,7 @@ Yb=173.04
 Zz=65.38
 Zr=91.22
 '
-if [ "$#" -eq '0' ]
+if [ "$#" -eq 0 ]
 then
     read -r input
 else
