@@ -10,7 +10,7 @@ if [ "$#" -eq '0' ]
 then
     read input
 else
-    if [ "$1" = '--help' ]
+    if [ "$1" = '-h' ] || [ "$1" = '--help' ]
     then
         printf 'Usage: %s [FORMULA]\n' "${0##*/}"
         exit
