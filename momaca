@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# +-------------------------------------------------------------------------
-# | LinMasMo - molar mass calculator
-# +-------------------------------------------------------------------------
+# momaca: molar mass calculator
+
 # Copyright © 2002-2018 Jakub Wilk <jwilk@jwilk.net>
 #       
 # This program is free software; you can redistribute it and/or modify
