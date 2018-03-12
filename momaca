@@ -12,7 +12,7 @@ then
 else
     if [ "$1" = '--help' ]
     then
-        <"$0" grep -e '^# ' | grep -v '^# vim:' | cut -c 3- >&2
+        printf 'Usage: %s [FORMULA]\n' "${0##*/}"
         exit
     else
         input="$*"
