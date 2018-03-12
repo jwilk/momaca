@@ -39,4 +39,4 @@ calcstring=`printf '%s' "$calcstring" | tr -dc '0-9.()+*'`
 [ -z "$calcstring" ] && calcstring='0.0'
 printf 'scale=2; (%s)/1\n' "$calcstring" | bc
 
-# vim:ts=2 sw=2 et
+# vim:ts=2 sts=2 sw=2 et
