@@ -18,24 +18,25 @@ else
         input="$*"
     fi
 fi
-output=`printf '%s' "$input" |
-tr -dc 'A-Za-z0-9[](){}' |
-tr '[]{}' '()()' |
-sed -e 's/\([A-Z][a-z]*\)/(\1)/g; s/\([0-9][0-9]*\)/*\1/g; s/)(/)+(/g; s/\([0-9]\)(/\1+(/g; s/^*\([0-9][0-9]*\)\(.*\)$/\1*(\2)/g' |
-sed -e 's/\([A-Z][a-z]*\)/\n#\1\n/g'`
+output=$(printf '%s' "$input" |
+    tr -dc 'A-Za-z0-9[](){}' |
+    tr '[]{}' '()()' |
+    sed -e 's/\([A-Z][a-z]*\)/(\1)/g; s/\([0-9][0-9]*\)/*\1/g; s/)(/)+(/g; s/\([0-9]\)(/\1+(/g; s/^*\([0-9][0-9]*\)\(.*\)$/\1*(\2)/g' |
+    sed -e 's/\([A-Z][a-z]*\)/\n#\1\n/g'
+)
 calcstring=''
 atom=''
 for atom in $output
 do
     if printf '%s' "$atom" | grep -q '^#'
     then
-        atom=`printf '%s' "$atom" | cut -c 2-`
-        atom=`printf '%s' "$atomdata" | tr ';' "\n" | grep -e "^$atom=" | cut -d '=' -f 2`
+        atom=$(printf '%s' "$atom" | cut -c 2-)
+        atom=$(printf '%s' "$atomdata" | tr ';' "\n" | grep -e "^$atom=" | cut -d '=' -f 2)
         [ -z "$atom" ] && atom='0.0'
     fi
     calcstring="$calcstring$atom"
 done
-calcstring=`printf '%s' "$calcstring" | tr -dc '0-9.()+*'`
+calcstring=$(printf '%s' "$calcstring" | tr -dc '0-9.()+*')
 [ -z "$calcstring" ] && calcstring='0.0'
 printf 'scale=2; (%s)/1\n' "$calcstring" | bc
 
