@@ -133,19 +133,19 @@ output=$(printf '%s' "$input" |
     tr -dc 'A-Za-z0-9[](){}' |
     tr '[]{}' '()()' |
     sed -e 's/\([A-Z][a-z]*\)/(\1)/g; s/\([0-9][0-9]*\)/*\1/g; s/)(/)+(/g; s/\([0-9]\)(/\1+(/g; s/^*\([0-9][0-9]*\)\(.*\)$/\1*(\2)/g' |
-    sed -e 's/\([A-Z][a-z]*\)/\n#\1\n/g'
+    sed -e 's/\([A-Z][a-z]*\)/\n$\1\n/g'
 )
 calcstring=''
-atom=''
-for atom in $output
+for item in $output
 do
-    if printf '%s' "$atom" | grep -q '^#'
+    if [ "${item#$}" != "$item" ]
     then
-        atom=$(printf '%s' "$atom" | cut -c 2-)
-        atom=$(printf '%s' "$atomdata" | grep -e "^$atom=" | cut -d '=' -f 2)
-        [ -z "$atom" ] && atom='0.0'
+        elem=${item#$}
+        mass=$(printf '%s' "$atomdata" | grep -e "^$elem=" | cut -d '=' -f 2)
+        [ -z "$mass" ] && mass='0.0'
+        item=$mass
     fi
-    calcstring="$calcstring$atom"
+    calcstring="$calcstring$item"
 done
 calcstring=$(printf '%s' "$calcstring" | tr -dc '0-9.()+*')
 [ -z "$calcstring" ] && calcstring='0.0'
