@@ -142,7 +142,11 @@ do
     then
         elem=${item#$}
         mass=$(printf '%s' "$elemdata" | grep -e "^$elem=" | cut -d '=' -f 2)
-        [ -z "$mass" ] && mass='0.0'
+        if [ -z "$mass" ]
+        then
+            printf '%s: unknown element %s\n' "${0##*/}" "$elem" >&2
+            exit 1
+        fi
         item=$mass
     fi
     calcstring="$calcstring$item"
