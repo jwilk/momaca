@@ -7,7 +7,7 @@
 
 set -e -u
 export LC_ALL=C
-atomdata='
+elemdata='
 Ac=227.0278
 Ag=107.868
 Al=26.98154
@@ -141,7 +141,7 @@ do
     if [ "${item#$}" != "$item" ]
     then
         elem=${item#$}
-        mass=$(printf '%s' "$atomdata" | grep -e "^$elem=" | cut -d '=' -f 2)
+        mass=$(printf '%s' "$elemdata" | grep -e "^$elem=" | cut -d '=' -f 2)
         [ -z "$mass" ] && mass='0.0'
         item=$mass
     fi
