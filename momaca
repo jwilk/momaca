@@ -120,14 +120,12 @@ Zr=91.22
 if [ "$#" -eq 0 ]
 then
     read -r input
+elif [ "$1" = '-h' ] || [ "$1" = '--help' ]
+then
+    printf 'Usage: %s [FORMULA]\n' "${0##*/}"
+    exit
 else
-    if [ "$1" = '-h' ] || [ "$1" = '--help' ]
-    then
-        printf 'Usage: %s [FORMULA]\n' "${0##*/}"
-        exit
-    else
-        input="$*"
-    fi
+    input="$*"
 fi
 output=$(printf '%s' "$input" |
     tr -dc 'A-Za-z0-9[](){}' |
