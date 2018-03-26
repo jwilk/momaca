@@ -1,3 +1,5 @@
+**momaca** is a command-line molar mass calculator:
+
 .. code:: console
 
    $ momaca H2SO4
